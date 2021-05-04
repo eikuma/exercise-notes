@@ -1,7 +1,4 @@
 import { auth, db } from "../config/firebase";
-// import { useContext, useEffect, useState } from "react";
-// import { AuthContext } from "../context/AuthService";
-import { Button, TextField } from "@material-ui/core";
 import { nanoid } from "nanoid";
 
 import Weight from "../component/Weight";
@@ -14,16 +11,19 @@ const Add = ({ set, day, type }) => {
       name: "",
       num1: "",
       num2: "",
+      set: "",
     },
   ];
-  const handleSubmit = (Name, num1, num2, e) => {
+  const handleSubmit = (Name, num1, num2, setCount, e) => {
     e.preventDefault();
 
     db.collection("notes").add({
+      userId: auth.currentUser.uid,
       date: day,
       name: Name,
       num1: num1,
       num2: num2,
+      set: setCount,
       type: type,
       id: nanoid(),
     });
@@ -32,27 +32,35 @@ const Add = ({ set, day, type }) => {
 
   const Type = () => {
     if (type === "weight") {
-      return <Weight handleSubmit={handleSubmit} note={empty} />;
+      return (
+        <Weight
+          handleSubmit={handleSubmit}
+          note={empty}
+          close={set}
+          closeId={false}
+        />
+      );
     } else if (type === "aerobic") {
-      return <Aerobic handleSubmit={handleSubmit} note={empty} />;
+      return (
+        <Aerobic
+          handleSubmit={handleSubmit}
+          note={empty}
+          close={set}
+          closeId={false}
+        />
+      );
     } else {
-      return <Program handleSubmit={handleSubmit} note={empty} />;
+      return (
+        <Program
+          handleSubmit={handleSubmit}
+          note={empty}
+          close={set}
+          closeId={false}
+        />
+      );
     }
   };
-  return (
-    <>
-      <Type />
-      <Button
-        variant="outlined"
-        color="primary"
-        onClick={() => {
-          set(false);
-        }}
-      >
-        とじる
-      </Button>
-    </>
-  );
+  return <Type />;
 };
 
 export default Add;

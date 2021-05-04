@@ -7,8 +7,12 @@ import { useForm } from "react-hook-form";
 import { AuthContext } from "../context/AuthService";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import VisibilityIcon from "@material-ui/icons/Visibility";
+import Header from "../component/Header";
 
 const useStyles = makeStyles({
+  container: {
+    marginTop: "64px",
+  },
   title: {
     color: "blue",
     margin: "0 auto",
@@ -53,60 +57,65 @@ const SignUp = () => {
   }
 
   return (
-    <form className={classes.form} onSubmit={handleSubmit(signup)}>
-      <h1 className={classes.title}>SignUp</h1>
-      <TextField
-        name="username"
-        variant="outlined"
-        label="ユーザーネーム"
-        inputRef={register({
-          required: true,
-        })}
-      />
-      {errors.username && "ユーザーネームを入力してください"}
-      <TextField
-        name="email"
-        variant="outlined"
-        label="メールアドレス"
-        inputRef={register({
-          required: "メールアドレスを入力してください",
-          pattern: {
-            value: mailReg,
-            message: "正しいメールアドレスを入力してください",
-          },
-        })}
-      />
-      {errors.email && errors.email.message}
-      <TextField
-        name="password"
-        type={pass}
-        variant="outlined"
-        label="パスワード"
-        inputRef={register({
-          required: "パスワードを入力してください",
-          pattern: {
-            value: passReg,
-            message:
-              "半角英字と半角数字それぞれ1文字以上含む8文字以上のパスワードを入力してください",
-          },
-        })}
-        InputProps={{
-          endAdornment: (
-            <InputAdornment
-              position="start"
-              onClick={() => set(pass === "password" ? "text" : "password")}
-            >
-              <VisibilityIcon color="disabled" />
-            </InputAdornment>
-          ),
-        }}
-      />
-      {errors.password && errors.password.message}
-      <Link to="/login">すでにアカウントをお持ちの方はこちら</Link>
-      <Button type="submit" variant="outlined" color="primary">
-        登録
-      </Button>
-    </form>
+    <>
+      <div className={classes.container}>
+        <Header />
+        <form className={classes.form} onSubmit={handleSubmit(signup)}>
+          <h1 className={classes.title}>SignUp</h1>
+          <TextField
+            name="username"
+            variant="outlined"
+            label="User Name"
+            inputRef={register({
+              required: true,
+            })}
+          />
+          {errors.username && "Please enter your username."}
+          <TextField
+            name="email"
+            variant="outlined"
+            label="E-mail"
+            inputRef={register({
+              required: "Please enter your E-mail address.",
+              pattern: {
+                value: mailReg,
+                message: "Please enter the correct email address.",
+              },
+            })}
+          />
+          {errors.email && errors.email.message}
+          <TextField
+            name="password"
+            type={pass}
+            variant="outlined"
+            label="Password"
+            inputRef={register({
+              required: "Please enter your password.",
+              pattern: {
+                value: passReg,
+                message:
+                  "Please enter a password of 8 characters or more including 1 or more half-width alphabets and 1 or more half-width numbers.",
+              },
+            })}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment
+                  position="start"
+                  onClick={() => set(pass === "password" ? "text" : "password")}
+                >
+                  <VisibilityIcon color="disabled" />
+                </InputAdornment>
+              ),
+            }}
+          />
+          {errors.password && errors.password.message}
+          <Link to="/login">Click here if you already have an account.</Link>
+          <Button type="submit" variant="outlined" color="primary">
+            Sign Up
+          </Button>
+        </form>
+      </div>
+    </>
   );
 };
 

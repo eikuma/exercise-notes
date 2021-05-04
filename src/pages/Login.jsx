@@ -6,8 +6,12 @@ import { auth } from "../config/firebase";
 import { AuthContext } from "../context/AuthService";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import VisibilityIcon from "@material-ui/icons/Visibility";
+import Header from "../component/Header";
 
 const useStyles = makeStyles({
+  container: {
+    marginTop: "64px",
+  },
   title: {
     color: "blue",
     margin: "0 auto",
@@ -51,39 +55,44 @@ const Login = ({ history }) => {
   }
 
   return (
-    <form className={classes.form}>
-      <h1 className={classes.title}>Login</h1>
-      <TextField
-        onChange={(e) => {
-          setEmail(e.target.value);
-        }}
-        variant="outlined"
-        label="メールアドレス"
-      />
-      <TextField
-        onChange={(e) => {
-          setPassword(e.target.value);
-        }}
-        type={pass}
-        variant="outlined"
-        label="パスワード"
-        InputProps={{
-          endAdornment: (
-            <InputAdornment
-              position="start"
-              onClick={() => set(pass === "password" ? "text" : "password")}
-            >
-              <VisibilityIcon color="disabled" />
-            </InputAdornment>
-          ),
-        }}
-      />
+    <>
+      <div className={classes.container}>
+        <Header />
+        <form className={classes.form}>
+          <h1 className={classes.title}>Login</h1>
+          <TextField
+            onChange={(e) => {
+              setEmail(e.target.value);
+            }}
+            variant="outlined"
+            label="E-mail"
+          />
+          <TextField
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
+            type={pass}
+            variant="outlined"
+            label="Password"
+            InputProps={{
+              endAdornment: (
+                <InputAdornment
+                  position="start"
+                  onClick={() => set(pass === "password" ? "text" : "password")}
+                >
+                  <VisibilityIcon color="disabled" />
+                </InputAdornment>
+              ),
+            }}
+          />
 
-      <Link to="/signup">アカウントをお持ちでない方</Link>
-      <Button variant="outlined" color="primary" onClick={handleSubmit}>
-        登録
-      </Button>
-    </form>
+          <Link to="/signup">Click here if you don't have an account.</Link>
+          <Button variant="outlined" color="primary" onClick={handleSubmit}>
+            Login
+          </Button>
+        </form>
+      </div>
+    </>
   );
 };
 

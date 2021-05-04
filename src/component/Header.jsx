@@ -1,5 +1,6 @@
-import { useState } from "react";
-import { auth, db } from "../config/firebase";
+import { useState, useContext } from "react";
+import { auth } from "../config/firebase";
+import { AuthContext } from "../context/AuthService";
 import clsx from "clsx";
 import { Link } from "react-router-dom";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
@@ -21,6 +22,7 @@ import HomeIcon from "@material-ui/icons/Home";
 import FitnessCenterIcon from "@material-ui/icons/FitnessCenter";
 import NoteIcon from "@material-ui/icons/Note";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 
 const drawerWidth = 240;
 
@@ -44,6 +46,9 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     flexGrow: 1,
+  },
+  Account: {
+    marginRight: "5px",
   },
   hide: {
     display: "none",
@@ -69,6 +74,7 @@ const Header = () => {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = useState(false);
+  const user = useContext(AuthContext);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -88,18 +94,26 @@ const Header = () => {
           })}
         >
           <Toolbar>
-            <Typography variant="h6" noWrap className={classes.title}>
+            <Typography variant="h5" noWrap className={classes.title}>
               Exercise Notes
             </Typography>
-            <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              edge="end"
-              onClick={handleDrawerOpen}
-              className={clsx(open && classes.hide)}
-            >
-              <MenuIcon />
-            </IconButton>
+            {user && (
+              <>
+                <AccountCircleIcon className={classes.Account} />
+                <Typography variant="h6" noWrap>
+                  {user.displayName}
+                </Typography>
+                <IconButton
+                  color="inherit"
+                  aria-label="open drawer"
+                  edge="end"
+                  onClick={handleDrawerOpen}
+                  className={clsx(open && classes.hide)}
+                >
+                  <MenuIcon />
+                </IconButton>
+              </>
+            )}
           </Toolbar>
         </AppBar>
         <Drawer

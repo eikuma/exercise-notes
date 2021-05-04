@@ -1,45 +1,85 @@
 import { useState } from "react";
-// import { AuthContext } from "../context/AuthService";
-import { Button, TextField } from "@material-ui/core";
+import { TextField, CardActions, IconButton } from "@material-ui/core";
+import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
+import HighlightOffIcon from "@material-ui/icons/HighlightOff";
+import { makeStyles } from "@material-ui/core/styles";
 
-const Weight = ({ handleSubmit, note }) => {
+const useStyles = makeStyles({
+  text: {
+    width: "100%",
+  },
+});
+
+const Weight = ({ handleSubmit, note, close, closeId }) => {
   const [name, setName] = useState(note.name);
   const [num1, setNum1] = useState(note.num1);
   const [num2, setNum2] = useState(note.num2);
+  const [set, setSet] = useState(note.set);
+  const classes = useStyles();
 
   return (
     <>
-      <TextField
-        onChange={(e) => {
-          setName(e.target.value);
-        }}
-        variant="outlined"
-        label="Name"
-        defaultValue={note.name}
-      />
-      <TextField
-        onChange={(e) => {
-          setNum1(e.target.value);
-        }}
-        variant="outlined"
-        label="Weight"
-        defaultValue={note.num1}
-      />
-      <TextField
-        onChange={(e) => {
-          setNum2(e.target.value);
-        }}
-        variant="outlined"
-        label="Times"
-        defaultValue={note.num2}
-      />
-      <Button
-        variant="outlined"
-        color="primary"
-        onClick={(e) => handleSubmit(name, num1, num2, e)}
-      >
-        登録
-      </Button>
+      <CardActions>
+        <TextField
+          onChange={(e) => {
+            setName(e.target.value);
+          }}
+          variant="outlined"
+          label="Name"
+          defaultValue={note.name}
+          className={classes.text}
+        />
+      </CardActions>
+      <CardActions>
+        <TextField
+          onChange={(e) => {
+            setNum1(e.target.value);
+          }}
+          variant="outlined"
+          label="Weight"
+          defaultValue={note.num1}
+          className={classes.text}
+        />
+      </CardActions>
+      <CardActions>
+        <TextField
+          onChange={(e) => {
+            setNum2(e.target.value);
+          }}
+          variant="outlined"
+          label="Times"
+          defaultValue={note.num2}
+          className={classes.text}
+        />
+      </CardActions>
+      <CardActions>
+        <TextField
+          onChange={(e) => {
+            setSet(e.target.value);
+          }}
+          variant="outlined"
+          label="Set Count"
+          defaultValue={note.set}
+          className={classes.text}
+        />
+      </CardActions>
+
+      <CardActions>
+        <IconButton
+          aria-label="Upload"
+          onClick={(e) => handleSubmit(name, num1, num2, set, e)}
+        >
+          <ArrowUpwardIcon />
+        </IconButton>
+        <IconButton
+          aria-label="Close"
+          onClick={() => {
+            close(closeId);
+          }}
+        >
+          <HighlightOffIcon />
+        </IconButton>
+      </CardActions>
     </>
   );
 };
