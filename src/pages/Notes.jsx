@@ -65,7 +65,6 @@ const Notes = () => {
         <TextField
           id="select"
           label="date"
-          defaultValue="konn"
           onChange={(e) => {
             setData(e.target.value);
           }}
@@ -102,20 +101,26 @@ const Notes = () => {
             </TableHead>
             <TableBody>
               {dayData ? (
-                dayData.map((data) => {
-                  if (data.type === "weight") {
-                    return (
-                      <TableRow key={data.id}>
-                        <TableCell component="th" scope="row">
-                          {data.name}
-                        </TableCell>
-                        <TableCell align="right">{data.num1}</TableCell>
-                        <TableCell align="right">{data.num2}</TableCell>
-                        <TableCell align="right">{data.set}</TableCell>
-                      </TableRow>
-                    );
-                  }
-                })
+                dayData
+                  .sort((a, b) => {
+                    if (a.name < b.name) return -1;
+                    if (a.name > b.name) return 1;
+                    return 0;
+                  })
+                  .map((data) => {
+                    if (data.type === "weight") {
+                      return (
+                        <TableRow key={data.id}>
+                          <TableCell component="th" scope="row">
+                            {data.name}
+                          </TableCell>
+                          <TableCell align="right">{data.num1}</TableCell>
+                          <TableCell align="right">{data.num2}</TableCell>
+                          <TableCell align="right">{data.set}</TableCell>
+                        </TableRow>
+                      );
+                    }
+                  })
               ) : (
                 <TableRow></TableRow>
               )}
@@ -134,19 +139,25 @@ const Notes = () => {
             </TableHead>
             <TableBody>
               {dayData ? (
-                dayData.map((data) => {
-                  if (data.type === "aerobic") {
-                    return (
-                      <TableRow key={data.id}>
-                        <TableCell component="th" scope="row">
-                          {data.name}
-                        </TableCell>
-                        <TableCell align="right">{data.num1}</TableCell>
-                        <TableCell align="right">{data.num2}</TableCell>
-                      </TableRow>
-                    );
-                  }
-                })
+                dayData
+                  .sort((a, b) => {
+                    if (a.name < b.name) return -1;
+                    if (a.name > b.name) return 1;
+                    return 0;
+                  })
+                  .map((data) => {
+                    if (data.type === "aerobic") {
+                      return (
+                        <TableRow key={data.id}>
+                          <TableCell component="th" scope="row">
+                            {data.name}
+                          </TableCell>
+                          <TableCell align="right">{data.num1}</TableCell>
+                          <TableCell align="right">{data.num2}</TableCell>
+                        </TableRow>
+                      );
+                    }
+                  })
               ) : (
                 <TableRow></TableRow>
               )}
@@ -164,18 +175,24 @@ const Notes = () => {
             </TableHead>
             <TableBody>
               {dayData ? (
-                dayData.map((data) => {
-                  if (data.type === "program") {
-                    return (
-                      <TableRow key={data.id}>
-                        <TableCell component="th" scope="row">
-                          {data.name}
-                        </TableCell>
-                        <TableCell align="right">{data.num1}</TableCell>
-                      </TableRow>
-                    );
-                  }
-                })
+                dayData
+                  .sort((a, b) => {
+                    if (a.name < b.name) return -1;
+                    if (a.name > b.name) return 1;
+                    return 0;
+                  })
+                  .map((data) => {
+                    if (data.type === "program") {
+                      return (
+                        <TableRow key={data.id}>
+                          <TableCell component="th" scope="row">
+                            {data.name}
+                          </TableCell>
+                          <TableCell align="right">{data.num1}</TableCell>
+                        </TableRow>
+                      );
+                    }
+                  })
               ) : (
                 <TableRow></TableRow>
               )}

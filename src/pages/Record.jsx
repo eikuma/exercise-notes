@@ -144,60 +144,66 @@ const Record = () => {
             </Card>
           </Grid>
           {notes ? (
-            notes.map((note) => {
-              if (note.type === "weight") {
-                if (note.editing) {
-                  return (
-                    <Update
-                      changeEditing={changeEditing}
-                      note={note}
-                      day={day}
-                      type="weight"
-                      key={note.id}
-                    />
-                  );
-                } else {
-                  return (
-                    <Grid item sm={4} xs={12}>
-                      <Card variant="outlined" className={classes.Card}>
-                        <CardContent>
-                          <Typography color="textSecondary">
-                            {`Name: ${note.name}`}
-                          </Typography>
-                          <Typography color="textSecondary">
-                            {`Weight: ${note.num1}`}
-                          </Typography>
-                          <Typography color="textSecondary">
-                            {`Times: ${note.num2}`}
-                          </Typography>
-                          <Typography color="textSecondary">
-                            {`Set Count: ${note.set}`}
-                          </Typography>
-                        </CardContent>
-                        <CardActions>
-                          <IconButton
-                            aria-label="Edit"
-                            onClick={() => {
-                              changeEditing(note.id);
-                            }}
-                          >
-                            <EditIcon />
-                          </IconButton>
-                          <IconButton
-                            aria-label="Delete"
-                            onClick={() => {
-                              deleteDoc(note.id);
-                            }}
-                          >
-                            <DeleteIcon />
-                          </IconButton>
-                        </CardActions>
-                      </Card>
-                    </Grid>
-                  );
+            notes
+              .sort((a, b) => {
+                if (a.name < b.name) return -1;
+                if (a.name > b.name) return 1;
+                return 0;
+              })
+              .map((note) => {
+                if (note.type === "weight") {
+                  if (note.editing) {
+                    return (
+                      <Update
+                        changeEditing={changeEditing}
+                        note={note}
+                        day={day}
+                        type="weight"
+                        key={note.id}
+                      />
+                    );
+                  } else {
+                    return (
+                      <Grid item sm={4} xs={12}>
+                        <Card variant="outlined" className={classes.Card}>
+                          <CardContent>
+                            <Typography color="textSecondary">
+                              {`Name: ${note.name}`}
+                            </Typography>
+                            <Typography color="textSecondary">
+                              {`Weight: ${note.num1}`}
+                            </Typography>
+                            <Typography color="textSecondary">
+                              {`Times: ${note.num2}`}
+                            </Typography>
+                            <Typography color="textSecondary">
+                              {`Set Count: ${note.set}`}
+                            </Typography>
+                          </CardContent>
+                          <CardActions>
+                            <IconButton
+                              aria-label="Edit"
+                              onClick={() => {
+                                changeEditing(note.id);
+                              }}
+                            >
+                              <EditIcon />
+                            </IconButton>
+                            <IconButton
+                              aria-label="Delete"
+                              onClick={() => {
+                                deleteDoc(note.id);
+                              }}
+                            >
+                              <DeleteIcon />
+                            </IconButton>
+                          </CardActions>
+                        </Card>
+                      </Grid>
+                    );
+                  }
                 }
-              }
-            })
+              })
           ) : (
             <CircularProgress />
           )}
@@ -224,57 +230,63 @@ const Record = () => {
             </Card>
           </Grid>
           {notes ? (
-            notes.map((note) => {
-              if (note.type === "aerobic") {
-                if (note.editing) {
-                  return (
-                    <Update
-                      changeEditing={changeEditing}
-                      note={note}
-                      day={day}
-                      type="aerobic"
-                      key={note.id}
-                    />
-                  );
-                } else {
-                  return (
-                    <Grid item sm={4} xs={12}>
-                      <Card variant="outlined" className={classes.Card}>
-                        <CardContent>
-                          <Typography color="textSecondary">
-                            {`Name: ${note.name}`}
-                          </Typography>
-                          <Typography color="textSecondary">
-                            {`Used Calories (kcal): ${note.num1}`}
-                          </Typography>
-                          <Typography color="textSecondary">
-                            {`Time: ${note.num2}`}
-                          </Typography>
-                        </CardContent>
-                        <CardActions>
-                          <IconButton
-                            aria-label="Edit"
-                            onClick={() => {
-                              changeEditing(note.id);
-                            }}
-                          >
-                            <EditIcon />
-                          </IconButton>
-                          <IconButton
-                            aria-label="Delete"
-                            onClick={() => {
-                              deleteDoc(note.id);
-                            }}
-                          >
-                            <DeleteIcon />
-                          </IconButton>
-                        </CardActions>
-                      </Card>
-                    </Grid>
-                  );
+            notes
+              .sort((a, b) => {
+                if (a.name < b.name) return -1;
+                if (a.name > b.name) return 1;
+                return 0;
+              })
+              .map((note) => {
+                if (note.type === "aerobic") {
+                  if (note.editing) {
+                    return (
+                      <Update
+                        changeEditing={changeEditing}
+                        note={note}
+                        day={day}
+                        type="aerobic"
+                        key={note.id}
+                      />
+                    );
+                  } else {
+                    return (
+                      <Grid item sm={4} xs={12}>
+                        <Card variant="outlined" className={classes.Card}>
+                          <CardContent>
+                            <Typography color="textSecondary">
+                              {`Name: ${note.name}`}
+                            </Typography>
+                            <Typography color="textSecondary">
+                              {`Used Calories (kcal): ${note.num1}`}
+                            </Typography>
+                            <Typography color="textSecondary">
+                              {`Time: ${note.num2}`}
+                            </Typography>
+                          </CardContent>
+                          <CardActions>
+                            <IconButton
+                              aria-label="Edit"
+                              onClick={() => {
+                                changeEditing(note.id);
+                              }}
+                            >
+                              <EditIcon />
+                            </IconButton>
+                            <IconButton
+                              aria-label="Delete"
+                              onClick={() => {
+                                deleteDoc(note.id);
+                              }}
+                            >
+                              <DeleteIcon />
+                            </IconButton>
+                          </CardActions>
+                        </Card>
+                      </Grid>
+                    );
+                  }
                 }
-              }
-            })
+              })
           ) : (
             <CircularProgress />
           )}
@@ -301,54 +313,60 @@ const Record = () => {
             </Card>
           </Grid>
           {notes ? (
-            notes.map((note) => {
-              if (note.type === "program") {
-                if (note.editing) {
-                  return (
-                    <Update
-                      changeEditing={changeEditing}
-                      note={note}
-                      day={day}
-                      type="program"
-                      key={note.id}
-                    />
-                  );
-                } else {
-                  return (
-                    <Grid item sm={4} xs={12}>
-                      <Card variant="outlined" className={classes.Card}>
-                        <CardContent>
-                          <Typography color="textSecondary">
-                            {`Name: ${note.name}`}
-                          </Typography>
-                          <Typography color="textSecondary">
-                            {`Used Calories (kcal): ${note.num1}`}
-                          </Typography>
-                        </CardContent>
-                        <CardActions>
-                          <IconButton
-                            aria-label="Edit"
-                            onClick={() => {
-                              changeEditing(note.id);
-                            }}
-                          >
-                            <EditIcon />
-                          </IconButton>
-                          <IconButton
-                            aria-label="Delete"
-                            onClick={() => {
-                              deleteDoc(note.id);
-                            }}
-                          >
-                            <DeleteIcon />
-                          </IconButton>
-                        </CardActions>
-                      </Card>
-                    </Grid>
-                  );
+            notes
+              .sort((a, b) => {
+                if (a.name < b.name) return -1;
+                if (a.name > b.name) return 1;
+                return 0;
+              })
+              .map((note) => {
+                if (note.type === "program") {
+                  if (note.editing) {
+                    return (
+                      <Update
+                        changeEditing={changeEditing}
+                        note={note}
+                        day={day}
+                        type="program"
+                        key={note.id}
+                      />
+                    );
+                  } else {
+                    return (
+                      <Grid item sm={4} xs={12}>
+                        <Card variant="outlined" className={classes.Card}>
+                          <CardContent>
+                            <Typography color="textSecondary">
+                              {`Name: ${note.name}`}
+                            </Typography>
+                            <Typography color="textSecondary">
+                              {`Used Calories (kcal): ${note.num1}`}
+                            </Typography>
+                          </CardContent>
+                          <CardActions>
+                            <IconButton
+                              aria-label="Edit"
+                              onClick={() => {
+                                changeEditing(note.id);
+                              }}
+                            >
+                              <EditIcon />
+                            </IconButton>
+                            <IconButton
+                              aria-label="Delete"
+                              onClick={() => {
+                                deleteDoc(note.id);
+                              }}
+                            >
+                              <DeleteIcon />
+                            </IconButton>
+                          </CardActions>
+                        </Card>
+                      </Grid>
+                    );
+                  }
                 }
-              }
-            })
+              })
           ) : (
             <CircularProgress />
           )}
